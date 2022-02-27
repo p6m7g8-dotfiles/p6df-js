@@ -43,12 +43,12 @@ p6df::modules::js::vscodes() {
   code --install-extension formulahendry.auto-rename-tag
 
   code --install-extension ecmel.vscode-html-css
-  code --install-extension ourhaouta.tailwindshades
+  code --install-extension bourhaouta.tailwindshades
   code --install-extension bradlc.vscode-tailwindcss
   code --install-extension PeterMekhaeil.vscode-tailwindcss-explorer
   code --install-extension sudoaugustin.tailwindcss-transpiler
 
-  code --install-extension denoland.vscode-deno
+  #  code --install-extension denoland.vscode-deno
 }
 
 ######################################################################
