@@ -115,6 +115,7 @@ p6df::modules::js::langs() {
     nodenv global $latest
     nodenv rehash
 
+    npm install -g npm
     npm install -g yarn lerna
     nodenv rehash
   done
