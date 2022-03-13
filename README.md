@@ -44,6 +44,7 @@
 
 #### p6df-js/init.zsh:
 
+- p6_js_npm_gobal_install(mod)
 - p6_js_yarn_submit()
 - p6_js_yarn_upgrade()
 - p6_node_prompt_info()
