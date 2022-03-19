@@ -8,7 +8,7 @@
 ######################################################################
 p6df::modules::js::deps() {
   ModuleDeps=(
-    p6m7g8/p6common
+    p6m7g8-dotfiles/p6common
     nodenv/nodenv
     nodenv/node-build
     ohmyzsh/ohmyzsh:plugins/npm
