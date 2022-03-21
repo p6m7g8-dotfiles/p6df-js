@@ -61,8 +61,8 @@ p6df::modules::js::vscodes() {
 ######################################################################
 p6df::modules::js::home::symlink() {
 
-  mkdir -p $P6_DFZ_SRC_DIR/nodenv/nodenv/plugins
-  ln -fs $P6_DFZ_SRC_DIR/nodenv/node-build $P6_DFZ_SRC_DIR/nodenv/nodenv/plugins/node-build
+  p6_dir_mk "$P6_DFZ_SRC_DIR/nodenv/nodenv/plugins"
+  p6_file_symlink "$P6_DFZ_SRC_DIR/nodenv/node-build" "$P6_DFZ_SRC_DIR/nodenv/nodenv/plugins/node-build"
   p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-js/share/.npm" ".npm"
 }
 
