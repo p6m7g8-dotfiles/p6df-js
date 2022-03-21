@@ -44,9 +44,7 @@
 
 #### p6df-js/init.zsh:
 
-- p6_js_npm_gobal_install(mod)
-- p6_js_yarn_submit()
-- p6_js_yarn_upgrade()
+- p6_js_npm_global_install(mod)
 - p6_node_prompt_info()
 - p6_node_prompt_reset()
 - p6df::modules::js::aliases::deno()
@@ -61,8 +59,6 @@
 - p6df::modules::js::nodenv::prompt::line()
 - p6df::modules::js::prompt::line()
 - p6df::modules::js::vscodes()
-- true  = p6_js_npm_is()
-- true  = p6_js_yarn_is()
 
 
 

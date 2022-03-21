@@ -281,7 +281,7 @@ p6_node_prompt_reset() {
 ######################################################################
 #<
 #
-# Function: p6_js_npm_gobal_install(mod)
+# Function: p6_js_npm_global_install(mod)
 #
 #  Args:
 #	mod -
