@@ -45,8 +45,7 @@
 #### p6df-js/init.zsh:
 
 - p6_js_npm_global_install(mod)
-- p6_node_prompt_info()
-- p6_node_prompt_reset()
+- p6_node_env_prompt_info()
 - p6df::modules::js::aliases::deno()
 - p6df::modules::js::aliases::lerna()
 - p6df::modules::js::aliases::yarn()
@@ -56,12 +55,12 @@
 - p6df::modules::js::init()
 - p6df::modules::js::langs()
 - p6df::modules::js::nodenv::init(dir)
-- p6df::modules::js::nodenv::prompt::line()
-- p6df::modules::js::prompt::line()
+- p6df::modules::js::prompt::init()
+- p6df::modules::js::prompt_info()
 - p6df::modules::js::vscodes()
+
 
 
 ## Author
 
 Philip M . Gollucci <pgollucci@p6m7g8.com>
-

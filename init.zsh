@@ -21,7 +21,6 @@ p6df::modules::js::deps() {
 #
 # Function: p6df::modules::js::vscodes()
 #
-#  Depends:	 p6_git
 #>
 ######################################################################
 p6df::modules::js::vscodes() {
@@ -56,7 +55,8 @@ p6df::modules::js::vscodes() {
 #
 # Function: p6df::modules::js::home::symlink()
 #
-#  Environment:	 P6_DFZ_SRC_DIR
+#  Depends:	 p6_dir p6_file p6_git
+#  Environment:	 P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
 p6df::modules::js::home::symlink() {
@@ -104,7 +104,7 @@ p6df::modules::js::langs() {
   )
 
   local ver_major
-  for ver_major in 12 14 16 17; do
+  for ver_major in 12 14 16 18; do
     # nuke the old one
     local previous=$(nodenv install -l | grep ^$ver_major | tail -2 | head -1)
     nodenv uninstall -f $previous
@@ -147,6 +147,7 @@ p6df::modules::js::aliases::lerna() {
 #
 # Function: p6df::modules::js::aliases::yarn()
 #
+#  Depends:	 p6_echo
 #>
 ######################################################################
 p6df::modules::js::aliases::yarn() {
@@ -181,7 +182,6 @@ p6df::modules::js::aliases::deno() {
 #
 # Function: p6df::modules::js::init()
 #
-#  Depends:	 p6_echo
 #  Environment:	 P6_DFZ_SRC_DIR
 #>
 ######################################################################
@@ -191,6 +191,23 @@ p6df::modules::js::init() {
   p6df::modules::js::aliases::yarn
   p6df::modules::js::aliases::deno
   p6df::modules::js::nodenv::init "$P6_DFZ_SRC_DIR"
+
+  p6df::modules::js::prompt::init
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::js::prompt::init()
+#
+#  Depends:	 p6_echo
+#>
+######################################################################
+p6df::modules::js::prompt::init() {
+
+  p6df::core::prompt::line::add "p6_lang_prompt_info"
+  p6df::core::prompt::line::add "p6_lang_envs_prompt_info"
+  p6df::core::prompt::lang::line::add node
 }
 
 ######################################################################
@@ -201,7 +218,6 @@ p6df::modules::js::init() {
 #  Args:
 #	dir -
 #
-#  Depends:	 p6_echo
 #  Environment:	 DISABLE_ENVS HAS_NODENV NODENV_ROOT
 #>
 ######################################################################
@@ -224,58 +240,27 @@ p6df::modules::js::nodenv::init() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::js::nodenv::prompt::line()
+# Function: p6df::modules::js::prompt_info()
+#
+#  Depends:	 p6_echo p6_node
+#>
+######################################################################
+p6df::modules::js::prompt_info() {
+
+  p6df::core::prompt::lang::line::add node
+}
+
+######################################################################
+#<
+#
+# Function: p6_node_env_prompt_info()
 #
 #  Depends:	 p6_echo
 #  Environment:	 NODENV_ROOT
 #>
 ######################################################################
-p6df::modules::js::nodenv::prompt::line() {
-
-  p6_echo "nodenv:\t  nodenv_root=$NODENV_ROOT"
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::js::prompt::line()
-#
-#  Depends:	 p6_echo p6_node
-#>
-######################################################################
-p6df::modules::js::prompt::line() {
-
-  p6_node_prompt_info
-}
-
-declare -g _p6_node_cache_prompt_version
-######################################################################
-#<
-#
-# Function: p6_node_prompt_info()
-#
-#  Depends:	 p6_echo p6_file p6_node p6_string
-#>
-######################################################################
-p6_node_prompt_info() {
-
-  if p6_string_blank "$_p6_node_cache_prompt_version"; then
-    _p6_node_cache_prompt_version=$(p6_lang_version "node")
-  fi
-  p6_echo "node:\t  ${_p6_node_cache_prompt_version}"
-}
-
-######################################################################
-#<
-#
-# Function: p6_node_prompt_reset()
-#
-#  Depends:	 p6_file
-#>
-######################################################################
-p6_node_prompt_reset() {
-
-  _p6_node_cache_prompt_version=""
+p6_node_env_prompt_info() {
+  p6_echo "nodenv_root=$NODENV_ROOT"
 }
 
 ######################################################################
