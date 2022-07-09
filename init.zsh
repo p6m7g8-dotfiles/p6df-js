@@ -232,7 +232,7 @@ p6df::modules::js::nodenv::init() {
     export NODENV_ROOT
     export HAS_NODENV=1
 
-    p6df::util::path_if $NODENV_ROOT/bin
+    p6_path_if $NODENV_ROOT/bin
     eval "$(nodenv init - zsh)"
   fi
 }
