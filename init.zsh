@@ -105,11 +105,11 @@ p6df::modules::js::langs::bun() {
 p6df::modules::js::langs::nodenv() {
   # update both
   (
-    cd $P6_DFZ_SRC_DIR/nodenv/node-build
+    p6_dir_cd "$P6_DFZ_SRC_DIR/nodenv/node-build"
     p6_git_p6_pull
   )
   (
-    cd $P6_DFZ_SRC_DIR/nodenv/nodenv
+    p6_dir_cd "$P6_DFZ_SRC_DIR/nodenv/nodenv"
     p6_git_p6_pull
   )
 
@@ -201,19 +201,20 @@ p6df::modules::js::init() {
   p6df::modules::js::aliases::yarn
   p6df::modules::js::aliases::deno
   p6df::modules::js::nodenv::init "$P6_DFZ_SRC_DIR"
-  p6df::modules::js::bun::init
+  p6df::modules::js::bun::init "$P6_DFZ_SRC_DIR"
 
   p6df::modules::js::prompt::init
 }
 
 p6df::modules::js::bun::init() {
+  local dir="$1"
 
   # bun completions
-  [ -s "/Users/pgollucci/src/github.com/p6/bun/_bun" ] && source "/Users/pgollucci/src/github.com/p6/bun/_bun"
+  p6_file_load "$dir/bun/_bun"
 
   # Bun
-  export BUN_INSTALL="/Users/pgollucci/src/github.com/p6/bun"
-  export PATH="$BUN_INSTALL/bin:$PATH"
+  p6_env_export BUN_INSTALL "$dir/bun"
+  p6_path_if "$BUN_INSTALL/bin"
 }
 
 ######################################################################
