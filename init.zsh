@@ -93,6 +93,16 @@ p6df::modules::js::external::brews() {
 ######################################################################
 p6df::modules::js::langs() {
 
+  p6df::modules::js::langs::nodenv
+  p6df::modules::js::langs::bun
+}
+
+p6df::modules::js::langs::bun() {
+
+  BUN_INSTALL=$P6_DFZ_SRC_DIR/bun curl https://bun.sh/install | bash
+}
+
+p6df::modules::js::langs::nodenv() {
   # update both
   (
     cd $P6_DFZ_SRC_DIR/nodenv/node-build
@@ -191,8 +201,19 @@ p6df::modules::js::init() {
   p6df::modules::js::aliases::yarn
   p6df::modules::js::aliases::deno
   p6df::modules::js::nodenv::init "$P6_DFZ_SRC_DIR"
+  p6df::modules::js::bun::init
 
   p6df::modules::js::prompt::init
+}
+
+p6df::modules::js::bun::init() {
+
+  # bun completions
+  [ -s "/Users/pgollucci/src/github.com/p6/bun/_bun" ] && source "/Users/pgollucci/src/github.com/p6/bun/_bun"
+
+  # Bun
+  export BUN_INSTALL="/Users/pgollucci/src/github.com/p6/bun"
+  export PATH="$BUN_INSTALL/bin:$PATH"
 }
 
 ######################################################################
