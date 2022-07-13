@@ -282,7 +282,7 @@ p6df::modules::js::prompt_info() {
 #>
 ######################################################################
 p6_node_env_prompt_info() {
-  p6_echo "nodenv_root=$NODENV_ROOT"
+  p6_echo "nodenv_root:\t  $NODENV_ROOT"
 }
 
 ######################################################################
