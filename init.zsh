@@ -3,16 +3,15 @@
 #
 # Function: p6df::modules::js::deps()
 #
-#  Depends:	 p6_git
 #>
 ######################################################################
 p6df::modules::js::deps() {
   ModuleDeps=(
-    p6m7g8-dotfiles/p6common
-    nodenv/nodenv
-    nodenv/node-build
+    p6m7g8-dotfiles/p6df-zsh
     ohmyzsh/ohmyzsh:plugins/npm
     ohmyzsh/ohmyzsh:plugins/yarn
+    nodenv/nodenv
+    nodenv/node-build
   )
 }
 
@@ -55,7 +54,6 @@ p6df::modules::js::vscodes() {
 #
 # Function: p6df::modules::js::home::symlink()
 #
-#  Depends:	 p6_dir p6_file p6_git
 #  Environment:	 P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
@@ -71,7 +69,6 @@ p6df::modules::js::home::symlink() {
 #
 # Function: p6df::modules::js::external::brews()
 #
-#  Depends:	 p6_git
 #  Environment:	 DENO_DIR
 #>
 ######################################################################
@@ -87,8 +84,6 @@ p6df::modules::js::external::brews() {
 #
 # Function: p6df::modules::js::langs()
 #
-#  Depends:	 p6_git
-#  Environment:	 P6_DFZ_SRC_DIR
 #>
 ######################################################################
 p6df::modules::js::langs() {
@@ -97,11 +92,27 @@ p6df::modules::js::langs() {
   p6df::modules::js::langs::bun
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::js::langs::bun()
+#
+#  Environment:	 BUN_INSTALL
+#>
+######################################################################
 p6df::modules::js::langs::bun() {
 
   BUN_INSTALL=$P6_DFZ_SRC_DIR/bun curl https://bun.sh/install | bash
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::js::langs::nodenv()
+#
+#  Environment:	 P6_DFZ_SRC_DIR
+#>
+######################################################################
 p6df::modules::js::langs::nodenv() {
   # update both
   (
@@ -157,7 +168,6 @@ p6df::modules::js::aliases::lerna() {
 #
 # Function: p6df::modules::js::aliases::yarn()
 #
-#  Depends:	 p6_echo
 #>
 ######################################################################
 p6df::modules::js::aliases::yarn() {
@@ -171,7 +181,6 @@ p6df::modules::js::aliases::yarn() {
 #
 # Function: p6df::modules::js::aliases::deno()
 #
-#  Depends:	 p6_echo
 #>
 ######################################################################
 p6df::modules::js::aliases::deno() {
@@ -206,6 +215,17 @@ p6df::modules::js::init() {
   p6df::modules::js::prompt::init
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::js::bun::init(dir)
+#
+#  Args:
+#	dir -
+#
+#  Environment:	 BUN_INSTALL
+#>
+######################################################################
 p6df::modules::js::bun::init() {
   local dir="$1"
 
@@ -222,7 +242,6 @@ p6df::modules::js::bun::init() {
 #
 # Function: p6df::modules::js::prompt::init()
 #
-#  Depends:	 p6_echo
 #>
 ######################################################################
 p6df::modules::js::prompt::init() {
@@ -264,7 +283,6 @@ p6df::modules::js::nodenv::init() {
 #
 # Function: p6df::modules::js::prompt_info()
 #
-#  Depends:	 p6_echo p6_node
 #>
 ######################################################################
 p6df::modules::js::prompt_info() {
@@ -277,7 +295,6 @@ p6df::modules::js::prompt_info() {
 #
 # Function: p6_node_env_prompt_info()
 #
-#  Depends:	 p6_echo
 #  Environment:	 NODENV_ROOT
 #>
 ######################################################################
