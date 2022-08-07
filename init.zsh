@@ -28,21 +28,22 @@ p6df::modules::js::vscodes() {
   code --install-extension dbaeumer.vscode-eslint
   code --install-extension GregorBiswanger.json2ts
 
-  code --install-extension dkundel.vscode-npm-source
-  code --install-extension meganrogge.template-string-converter
   code --install-extension BriteSnow.vscode-toggle-quotes
+  code --install-extension dkundel.vscode-npm-source
+  code --install-extension dsznajder.es7-react-js-snippets
+  code --install-extension meganrogge.template-string-converter
   code --install-extension steoates.autoimport
   code --install-extension wix.glean
   code --install-extension wix.vscode-import-cost
-  code --install-extension dsznajder.es7-react-js-snippets
 
   code --install-extension bradgashler.htmltagwrap
   code --install-extension formulahendry.auto-close-tag
   code --install-extension formulahendry.auto-rename-tag
 
-  code --install-extension ecmel.vscode-html-css
   code --install-extension bourhaouta.tailwindshades
   code --install-extension bradlc.vscode-tailwindcss
+  code --install-extension ecmel.vscode-html-css
+  code --install-extension heybourn.headwind
   code --install-extension PeterMekhaeil.vscode-tailwindcss-explorer
   code --install-extension sudoaugustin.tailwindcss-transpiler
 
