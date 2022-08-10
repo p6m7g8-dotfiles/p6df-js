@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 ######################################################################
 #<
 #
@@ -48,6 +49,8 @@ p6df::modules::js::vscodes() {
   code --install-extension sudoaugustin.tailwindcss-transpiler
 
   #  code --install-extension denoland.vscode-deno
+
+  p6_return_void
 }
 
 ######################################################################
@@ -63,6 +66,8 @@ p6df::modules::js::home::symlink() {
   p6_dir_mk "$P6_DFZ_SRC_DIR/nodenv/nodenv/plugins"
   p6_file_symlink "$P6_DFZ_SRC_DIR/nodenv/node-build" "$P6_DFZ_SRC_DIR/nodenv/nodenv/plugins/node-build"
   p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-js/share/.npm" ".npm"
+
+  p6_return_void
 }
 
 ######################################################################
@@ -78,6 +83,8 @@ p6df::modules::js::external::brews() {
   # DENO_DIR defaults to $HOME/.cache/deno
   # deno completions zsh
   brew install deno
+
+  p6_return_void
 }
 
 ######################################################################
@@ -91,6 +98,8 @@ p6df::modules::js::langs() {
 
   p6df::modules::js::langs::nodenv
   p6df::modules::js::langs::bun
+
+  p6_return_void
 }
 
 ######################################################################
@@ -104,6 +113,8 @@ p6df::modules::js::langs() {
 p6df::modules::js::langs::bun() {
 
   BUN_INSTALL=$P6_DFZ_SRC_DIR/bun curl https://bun.sh/install | bash
+
+  p6_return_void
 }
 
 ######################################################################
@@ -115,15 +126,9 @@ p6df::modules::js::langs::bun() {
 #>
 ######################################################################
 p6df::modules::js::langs::nodenv() {
-  # update both
-  (
-    p6_dir_cd "$P6_DFZ_SRC_DIR/nodenv/node-build"
-    p6_git_p6_pull
-  )
-  (
-    p6_dir_cd "$P6_DFZ_SRC_DIR/nodenv/nodenv"
-    p6_git_p6_pull
-  )
+
+  p6_dir_run "$P6_DFZ_SRC_DIR/nodenv/node-build" p6_git_p6_pull
+  p6_dir_run "$P6_DFZ_SRC_DIR/nodenv/nodenv" p6_git_p6_pull
 
   local ver_major
   for ver_major in 14 16 18; do
@@ -142,6 +147,8 @@ p6df::modules::js::langs::nodenv() {
     npm install -g yarn lerna
     nodenv rehash
   done
+
+  p6_return_void
 }
 
 ######################################################################
@@ -161,7 +168,9 @@ p6df::modules::js::aliases::lerna() {
   alias lt='lr test'
 
   # runs "npm run watch" for the current module (recommended to run in a separate terminal session)
-  alias lw='lr watch'
+  alias lw='lr woatch'
+
+  p6_return_void
 }
 
 ######################################################################
@@ -175,6 +184,8 @@ p6df::modules::js::aliases::yarn() {
 
   alias yd='yarn deploy'
   alias yD='yarn destroy'
+
+  p6_return_void
 }
 
 ######################################################################
@@ -196,7 +207,10 @@ p6df::modules::js::aliases::deno() {
   alias drw='deno run --watch'
   alias dts='deno test'
   alias dup='deno upgrade'
+
+  p6_return_void
 }
+
 ######################################################################
 #<
 #
@@ -214,6 +228,8 @@ p6df::modules::js::init() {
   p6df::modules::js::bun::init "$P6_DFZ_SRC_DIR"
 
   p6df::modules::js::prompt::init
+
+  p6_return_void
 }
 
 ######################################################################
@@ -236,6 +252,8 @@ p6df::modules::js::bun::init() {
   # Bun
   p6_env_export BUN_INSTALL "$dir/bun"
   p6_path_if "$BUN_INSTALL/bin"
+
+  p6_return_void
 }
 
 ######################################################################
@@ -260,23 +278,21 @@ p6df::modules::js::prompt::init() {
 #  Args:
 #	dir -
 #
-#  Environment:	 DISABLE_ENVS HAS_NODENV NODENV_ROOT
+#  Environment:	 HAS_NODENV NODENV_ROOT P6_DFZ_LANGS_DISABLE
 #>
 ######################################################################
 p6df::modules::js::nodenv::init() {
   local dir="$1"
 
-  [ -n "$DISABLE_ENVS" ] && return
-
-  NODENV_ROOT=$dir/nodenv/nodenv
-
-  if [ -x $NODENV_ROOT/bin/nodenv ]; then
-    export NODENV_ROOT
-    export HAS_NODENV=1
-
+  local NODENV_ROOT=$dir/nodenv/nodenv
+  if p6_string_blank "$P6_DFZ_LANGS_DISABLE" && p6_file_executable "$NODENV_ROOT/bin/nodenv"; then
+    p6_env_export NODENV_ROOT "$NODENV_ROOT"
+    p6_env_export HAS_NODENV 1
     p6_path_if $NODENV_ROOT/bin
     eval "$(nodenv init - zsh)"
   fi
+
+  p6_return_void
 }
 
 ######################################################################
