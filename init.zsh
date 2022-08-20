@@ -81,7 +81,6 @@ p6df::modules::js::home::symlink() {
 p6df::modules::js::external::brews() {
 
   # DENO_DIR defaults to $HOME/.cache/deno
-  # deno completions zsh
   brew install deno
 
   p6_return_void
@@ -112,7 +111,13 @@ p6df::modules::js::langs() {
 ######################################################################
 p6df::modules::js::langs::bun() {
 
-  BUN_INSTALL=$P6_DFZ_SRC_DIR/bun curl https://bun.sh/install | bash
+  local file=$(p6_transient_create_file "bun.sh")
+
+  p6_network_file_download "https://bun.sh/install" "$file"
+  p6_file_lines_remove "162" "232" "$file"
+  p6_file_perms_set "a+rx" "$file"
+  p6_run_code "BUN_INSTALL=$P6_DFZ_SRC_DIR/bun"6 "$file"
+  p6_file_remove "$file"
 
   p6_return_void
 }
@@ -127,28 +132,53 @@ p6df::modules::js::langs::bun() {
 ######################################################################
 p6df::modules::js::langs::nodenv() {
 
-  p6_dir_run "$P6_DFZ_SRC_DIR/nodenv/node-build" p6_git_p6_pull
-  p6_dir_run "$P6_DFZ_SRC_DIR/nodenv/nodenv" p6_git_p6_pull
+  p6_run_dir "$P6_DFZ_SRC_DIR/nodenv/node-build" p6_git_p6_pull
+  p6_run_dir "$P6_DFZ_SRC_DIR/nodenv/nodenv" p6_git_p6_pull
 
   local ver_major
   for ver_major in 14 16 18; do
     # nuke the old one
-    local previous=$(nodenv install -l | grep ^$ver_major | tail -2 | head -1)
+    local previous=$(p6df::modules::js::nodenv::latest::installed)
     nodenv uninstall -f $previous
 
     # get the shiny one
-    local latest=$(nodenv install -l | grep ^$ver_major | tail -1)
+    local latest=$(p6df::modules::js::nodenv::latest)
 
     nodenv install -s $latest
     nodenv global $latest
     nodenv rehash
 
     npm install -g npm
-    npm install -g yarn lerna
+    p6_js_npm_global_install "yarn"
+    p6_js_npm_global_install "lerna"
     nodenv rehash
   done
 
   p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::js::nodenv::latest()
+#
+#>
+######################################################################
+p6df::modules::js::nodenv::latest() {
+
+  nodenv install -l | p6_filter_select "^$ver_major" | p6_filter_last "1"
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::js::nodenv::latest::installed()
+#
+#>
+######################################################################
+p6df::modules::js::nodenv::latest::installed() {
+
+  nodenv install -l | p6_filter_select "^$ver_major" | p6_filter_from_end "2"
 }
 
 ######################################################################
@@ -221,13 +251,25 @@ p6df::modules::js::aliases::deno() {
 ######################################################################
 p6df::modules::js::init() {
 
+  p6df::core::lang::mgr::init "$P6_DFZ_SRC_DIR/nodenv/nodenv" "nod"
+
+  p6df::modules::js::bun::init "$P6_DFZ_SRC_DIR"
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::js::aliases::init()
+#
+#>
+######################################################################
+p6df::modules::js::aliases::init() {
+
   p6df::modules::js::aliases::lerna
   p6df::modules::js::aliases::yarn
   p6df::modules::js::aliases::deno
-  p6df::modules::js::nodenv::init "$P6_DFZ_SRC_DIR"
-  p6df::modules::js::bun::init "$P6_DFZ_SRC_DIR"
-
-  p6df::modules::js::prompt::init
 
   p6_return_void
 }
@@ -246,9 +288,6 @@ p6df::modules::js::init() {
 p6df::modules::js::bun::init() {
   local dir="$1"
 
-  # bun completions
-  p6_file_load "$dir/bun/_bun"
-
   # Bun
   p6_env_export BUN_INSTALL "$dir/bun"
   p6_path_if "$BUN_INSTALL/bin"
@@ -259,63 +298,32 @@ p6df::modules::js::bun::init() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::js::prompt::init()
-#
-#>
-######################################################################
-p6df::modules::js::prompt::init() {
-
-  p6df::core::prompt::line::add "p6_lang_prompt_info"
-  p6df::core::prompt::line::add "p6_lang_envs_prompt_info"
-  p6df::core::prompt::lang::line::add node
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::js::nodenv::init(dir)
+# Function: p6df::modules::js::completions::init(module, dir)
 #
 #  Args:
+#	module -
 #	dir -
 #
-#  Environment:	 HAS_NODENV NODENV_ROOT P6_DFZ_LANGS_DISABLE
 #>
 ######################################################################
-p6df::modules::js::nodenv::init() {
-  local dir="$1"
+p6df::modules::js::completions::init() {
+  local module="$1"
+  local dir="$2"
 
-  local NODENV_ROOT=$dir/nodenv/nodenv
-  if p6_string_blank "$P6_DFZ_LANGS_DISABLE" && p6_file_executable "$NODENV_ROOT/bin/nodenv"; then
-    p6_env_export NODENV_ROOT "$NODENV_ROOT"
-    p6_env_export HAS_NODENV 1
-    p6_path_if $NODENV_ROOT/bin
-    eval "$(nodenv init - zsh)"
-  fi
-
-  p6_return_void
+  # bun completions
+  p6_file_load "$dir/bun/_bun"
 }
 
 ######################################################################
 #<
 #
-# Function: p6df::modules::js::prompt_info()
-#
-#>
-######################################################################
-p6df::modules::js::prompt_info() {
-
-  p6df::core::prompt::lang::line::add node
-}
-
-######################################################################
-#<
-#
-# Function: p6_node_env_prompt_info()
+# Function: p6df::modules::node::env::prompt::info()
 #
 #  Environment:	 NODENV_ROOT
 #>
 ######################################################################
-p6_node_env_prompt_info() {
+p6df::modules::node::env::prompt::info() {
+
   p6_echo "nodenv_root:\t  $NODENV_ROOT"
 }
 

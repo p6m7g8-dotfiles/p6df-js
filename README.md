@@ -45,11 +45,12 @@
 #### p6df-js/init.zsh:
 
 - p6_js_npm_global_install(mod)
-- p6_node_env_prompt_info()
 - p6df::modules::js::aliases::deno()
+- p6df::modules::js::aliases::init()
 - p6df::modules::js::aliases::lerna()
 - p6df::modules::js::aliases::yarn()
 - p6df::modules::js::bun::init(dir)
+- p6df::modules::js::completions::init(module, dir)
 - p6df::modules::js::deps()
 - p6df::modules::js::external::brews()
 - p6df::modules::js::home::symlink()
@@ -57,10 +58,10 @@
 - p6df::modules::js::langs()
 - p6df::modules::js::langs::bun()
 - p6df::modules::js::langs::nodenv()
-- p6df::modules::js::nodenv::init(dir)
-- p6df::modules::js::prompt::init()
-- p6df::modules::js::prompt_info()
+- p6df::modules::js::nodenv::latest()
+- p6df::modules::js::nodenv::latest::installed()
 - p6df::modules::js::vscodes()
+- p6df::modules::node::env::prompt::info()
 
 
 
