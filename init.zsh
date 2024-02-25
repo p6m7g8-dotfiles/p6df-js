@@ -136,7 +136,7 @@ p6df::modules::js::langs::nodenv() {
   p6_run_dir "$P6_DFZ_SRC_DIR/nodenv/nodenv" p6_git_p6_pull
 
   local ver_major
-  for ver_major in 16 18 20 21; do
+  for ver_major in 18 20 21; do
     # nuke the old one
     local previous=$(p6df::modules::js::nodenv::latest::installed)
     nodenv uninstall -f $previous
