@@ -63,6 +63,7 @@
 - p6df::modules::js::nodenv::latest::installed()
 - p6df::modules::js::vscodes()
 - p6df::modules::node::env::prompt::info()
+- str str = p6df::modules::js::eslint::prompt::line()
 
 
 
