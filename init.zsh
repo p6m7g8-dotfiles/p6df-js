@@ -330,6 +330,23 @@ p6df::modules::node::env::prompt::info() {
 ######################################################################
 #<
 #
+# Function: p6df::modules::js::eslint::clones()
+#
+#  Environment:	 P6_DFZ_SRC_FOCUSED_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
+#>
+######################################################################
+p6df::modules::js::eslint::clones() {
+
+  p6_github_login_clone eslint "$P6_DFZ_SRC_FOCUSED_DIR"
+
+  p6_run_parallel "0" "4" "$(cat $P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-js/conf/eslints)" "p6_git_p6_clone" "" "$P6_DFZ_SRC_FOCUSED_DIR"
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
 # Function: p6_js_npm_global_install(mod)
 #
 #  Args:
