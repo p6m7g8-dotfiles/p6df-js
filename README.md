@@ -52,7 +52,6 @@
 - p6df::modules::js::bun::init(dir)
 - p6df::modules::js::completions::init(module, dir)
 - p6df::modules::js::deps()
-- p6df::modules::js::eslint::clones()
 - p6df::modules::js::external::brews()
 - p6df::modules::js::home::symlink()
 - p6df::modules::js::init()
@@ -63,7 +62,6 @@
 - p6df::modules::js::nodenv::latest::installed()
 - p6df::modules::js::vscodes()
 - p6df::modules::node::env::prompt::info()
-- str str = p6df::modules::js::eslint::prompt::line()
 
 
 
