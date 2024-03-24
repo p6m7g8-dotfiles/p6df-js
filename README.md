@@ -10,8 +10,7 @@
   - [Summary](#summary)
   - [Contributing](#contributing)
   - [Code of Conduct](#code-of-conduct)
-  - [Changes](#changes)
-    - [Usage](#usage)
+  - [Usage](#usage)
   - [Author](#author)
 
 ### Badges
@@ -34,11 +33,17 @@
 
 - [Code of Conduct](https://github.com/p6m7g8/.github/blob/master/CODE_OF_CONDUCT.md)
 
-## Changes
-
-- [Change Log](CHANGELOG.md)
-
 ## Usage
+
+
+### Aliases
+
+- lb -> lr build
+- lr -> lerna run --stream --scope $(node -p 'require(\'./package.json\').name\')
+- lt -> lr test
+- lw -> lr watch
+
+### Functions
 
 ### p6df-js:
 
@@ -54,7 +59,7 @@
 - p6df::modules::js::deps()
 - p6df::modules::js::external::brews()
 - p6df::modules::js::home::symlink()
-- p6df::modules::js::init()
+- p6df::modules::js::init(_module, dir)
 - p6df::modules::js::langs()
 - p6df::modules::js::langs::bun()
 - p6df::modules::js::langs::nodenv()
