@@ -25,7 +25,6 @@ p6df::modules::js::deps() {
 ######################################################################
 p6df::modules::js::vscodes() {
 
-  # webasm/ts/js/deno/node/html/css
   code --install-extension GregorBiswanger.json2ts
 
   code --install-extension BriteSnow.vscode-toggle-quotes
@@ -79,7 +78,7 @@ p6df::modules::js::home::symlink() {
 p6df::modules::js::external::brews() {
 
   # DENO_DIR defaults to $HOME/.cache/deno
-  brew install deno
+  p6df::modules::homebrew::cli::brew::install deno
 
   p6_return_void
 }
@@ -189,14 +188,14 @@ p6df::modules::js::nodenv::latest::installed() {
 p6df::modules::js::aliases::lerna() {
 
   # runs an npm script via lerna for a the current module
-  alias lr='lerna run --stream --scope $(node -p "require(\"./package.json\").name")'
+  p6_alias "lr" "lerna run --stream --scope $(node -p 'require(\'./package.json\').name\')"
 
   # runs "npm run build" (build + test) for the current module
-  alias lb='lr build'
-  alias lt='lr test'
+  p6_alias "lb" "lr build"
+  p6_alias "lt" "lr test"
 
   # runs "npm run watch" for the current module (recommended to run in a separate terminal session)
-  alias lw='lr woatch'
+  p6_alias "lw" "lr watch"
 
   p6_return_void
 }
@@ -242,12 +241,18 @@ p6df::modules::js::aliases::deno() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::js::init()
+# Function: p6df::modules::js::init(_module, dir)
+#
+#  Args:
+#	_module -
+#	dir -
 #
 #  Environment:	 P6_DFZ_SRC_DIR
 #>
 ######################################################################
 p6df::modules::js::init() {
+  local _module="$1"
+  local dir="$2"
 
   p6df::core::lang::mgr::init "$P6_DFZ_SRC_DIR/nodenv/nodenv" "nod"
 
