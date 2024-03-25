@@ -188,7 +188,7 @@ p6df::modules::js::nodenv::latest::installed() {
 p6df::modules::js::aliases::lerna() {
 
   # runs an npm script via lerna for a the current module
-  p6_alias "lr" "lerna run --stream --scope $(node -p 'require(\'./package.json\').name\')"
+#  p6_alias "lr" "lerna run --stream --scope $(node -p 'require(\'./package.json\').name\')"
 
   # runs "npm run build" (build + test) for the current module
   p6_alias "lb" "lr build"
