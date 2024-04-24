@@ -135,11 +135,11 @@ p6df::modules::js::langs::nodenv() {
   local ver_major
   for ver_major in 18 20 21; do
     # nuke the old one
-    local previous=$(p6df::modules::js::nodenv::latest::installed)
+    local previous=$(p6df::modules::js::nodenv::latest::installed "$ver_major")
     nodenv uninstall -f $previous
 
     # get the shiny one
-    local latest=$(p6df::modules::js::nodenv::latest)
+    local latest=$(p6df::modules::js::nodenv::latest "$ver_major")
 
     nodenv install -s $latest
     nodenv global $latest
@@ -162,8 +162,9 @@ p6df::modules::js::langs::nodenv() {
 #>
 ######################################################################
 p6df::modules::js::nodenv::latest() {
+  local ver_major="$1"
 
-  nodenv install -l | p6_filter_select "^$ver_major" | p6_filter_last "1"
+  nodenv install -l | p6_filter_row_select "^$ver_major" | p6_filter_row_last "1"
 }
 
 ######################################################################
@@ -174,8 +175,9 @@ p6df::modules::js::nodenv::latest() {
 #>
 ######################################################################
 p6df::modules::js::nodenv::latest::installed() {
+  local $ver_major="$1"
 
-  nodenv install -l | p6_filter_select "^$ver_major" | p6_filter_from_end "2"
+  nodenv install -l | p6_filter_row_select "^$ver_major" | p6_filter_row_from_end "2"
 }
 
 ######################################################################
