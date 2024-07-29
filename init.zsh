@@ -93,7 +93,7 @@ p6df::modules::js::external::brews() {
 p6df::modules::js::langs() {
 
   p6df::modules::js::langs::nodenv
-  p6df::modules::js::langs::bun
+#  p6df::modules::js::langs::bun
 
   p6_return_void
 }
@@ -129,8 +129,8 @@ p6df::modules::js::langs::bun() {
 ######################################################################
 p6df::modules::js::langs::nodenv() {
 
-  p6_run_dir "$P6_DFZ_SRC_DIR/nodenv/node-build" p6_git_p6_pull
-  p6_run_dir "$P6_DFZ_SRC_DIR/nodenv/nodenv" p6_git_p6_pull
+  p6_run_dir "$P6_DFZ_SRC_DIR/nodenv/node-build" p6_git_cli_pull_rebase_autostash_ff_only
+  p6_run_dir "$P6_DFZ_SRC_DIR/nodenv/nodenv" p6_git_cli_pull_rebase_autostash_ff_only
 
   local ver_major
   for ver_major in 18 20 21; do
@@ -175,7 +175,7 @@ p6df::modules::js::nodenv::latest() {
 #>
 ######################################################################
 p6df::modules::js::nodenv::latest::installed() {
-  local $ver_major="$1"
+  local ver_major="$1"
 
   nodenv install -l | p6_filter_row_select "^$ver_major" | p6_filter_row_from_end "2"
 }
