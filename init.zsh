@@ -133,7 +133,7 @@ p6df::modules::js::langs::nodenv() {
   p6_run_dir "$P6_DFZ_SRC_DIR/nodenv/nodenv" p6_git_cli_pull_rebase_autostash_ff_only
 
   local ver_major
-  for ver_major in 18 20 21; do
+  for ver_major in 18 20 21 22; do
     # nuke the old one
     local previous=$(p6df::modules::js::nodenv::latest::installed "$ver_major")
     nodenv uninstall -f $previous
@@ -147,6 +147,7 @@ p6df::modules::js::langs::nodenv() {
 
     npm install -g npm
     p6_js_npm_global_install "yarn"
+    corepack enable
     p6_js_npm_global_install "lerna"
     nodenv rehash
   done
