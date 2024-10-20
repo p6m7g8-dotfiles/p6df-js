@@ -45,6 +45,8 @@ p6df::modules::js::vscodes() {
   code --install-extension PeterMekhaeil.vscode-tailwindcss-explorer
   code --install-extension sudoaugustin.tailwindcss-transpiler
 
+  code --install-extension Orta.vscode-jest
+
   #  code --install-extension denoland.vscode-deno
 
   p6_return_void
