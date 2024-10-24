@@ -27,6 +27,8 @@ p6df::modules::js::vscodes() {
 
   code --install-extension GregorBiswanger.json2ts
 
+  code --install-extension orta.vscode-jest
+
   code --install-extension BriteSnow.vscode-toggle-quotes
   code --install-extension dkundel.vscode-npm-source
   code --install-extension meganrogge.template-string-converter
