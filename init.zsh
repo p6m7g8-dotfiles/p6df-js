@@ -13,6 +13,7 @@ p6df::modules::js::deps() {
     ohmyzsh/ohmyzsh:plugins/yarn
     nodenv/nodenv
     nodenv/node-build
+    p6m7g8/p6-zsh-pnpm-plugin
   )
 }
 
