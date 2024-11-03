@@ -20,7 +20,7 @@ jobs:
       - name: Dependant Repositories
         run: |
           . ./p6common/init.zsh
-	  zsh -c 'p6df::modules::p6common::gha::ModuleDeps zsh'
+          zsh -c 'p6df::modules::p6common::gha::ModuleDeps js'
       - name: Test
         env:
           P6_DFZ_SRC_P6M7G8_DOTFILES_DIR: .
