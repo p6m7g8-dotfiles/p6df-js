@@ -163,7 +163,10 @@ p6df::modules::js::langs::nodenv() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::js::nodenv::latest()
+# Function: p6df::modules::js::nodenv::latest(ver_major)
+#
+#  Args:
+#	ver_major -
 #
 #>
 ######################################################################
@@ -176,7 +179,10 @@ p6df::modules::js::nodenv::latest() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::js::nodenv::latest::installed()
+# Function: p6df::modules::js::nodenv::latest::installed(ver_major)
+#
+#  Args:
+#	ver_major -
 #
 #>
 ######################################################################
@@ -336,6 +342,40 @@ p6df::modules::js::completions::init() {
 p6df::modules::node::env::prompt::info() {
 
   p6_echo "nodenv_root:\t  $NODENV_ROOT"
+}
+
+######################################################################
+#<
+#
+# Function: str str = p6df::modules::js::pm::prompt::info()
+#
+#  Returns:
+#	str - str
+#
+#>
+######################################################################
+p6df::modules::js::pm::prompt::info() {
+
+  local str=""
+
+  if p6_file_exists "package-lock.json"; then
+      str="${str}npm "
+  fi
+  if p6_file_exists "yarn.lock"; then
+      str="${str}yarn "
+  fi
+  if p6_file_exists "pnpm-lock.yaml"; then
+      str="${str}pnpm "
+  fi
+  if p6_file_exists "lerna.json"; then
+      str="${str}lerna "
+  fi
+
+  if ! p6_string_blank "$str"; then
+    str="js::\t\t  pm:$str"
+  fi
+
+  p6_return_str "$str"
 }
 
 ######################################################################
