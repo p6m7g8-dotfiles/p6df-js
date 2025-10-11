@@ -138,7 +138,7 @@ p6df::modules::js::langs::nodenv() {
   p6_run_dir "$P6_DFZ_SRC_DIR/nodenv/nodenv" p6_git_cli_pull_rebase_autostash_ff_only
 
   local ver_major
-  for ver_major in 21 22 24; do
+  for ver_major in 22 24; do
     # nuke the old one
     local previous=$(p6df::modules::js::nodenv::latest::installed "$ver_major")
     nodenv uninstall -f $previous
