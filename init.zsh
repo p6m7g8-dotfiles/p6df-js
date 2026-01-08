@@ -26,31 +26,15 @@ p6df::modules::js::deps() {
 ######################################################################
 p6df::modules::js::vscodes() {
 
-  code --install-extension GregorBiswanger.json2ts
-
+  code --install-extension gregorbiswanger.json2ts
   code --install-extension orta.vscode-jest
-
-  code --install-extension BriteSnow.vscode-toggle-quotes
-  code --install-extension dkundel.vscode-npm-source
-  code --install-extension meganrogge.template-string-converter
-  code --install-extension steoates.autoimport
-  code --install-extension wix.glean
   code --install-extension wix.vscode-import-cost
-
   code --install-extension bradgashler.htmltagwrap
   code --install-extension formulahendry.auto-close-tag
   code --install-extension formulahendry.auto-rename-tag
-
-  code --install-extension bourhaouta.tailwindshades
   code --install-extension bradlc.vscode-tailwindcss
-  code --install-extension ecmel.vscode-html-css
   code --install-extension heybourn.headwind
-  code --install-extension PeterMekhaeil.vscode-tailwindcss-explorer
-  code --install-extension sudoaugustin.tailwindcss-transpiler
-
-  code --install-extension Orta.vscode-jest
-
-  #  code --install-extension denoland.vscode-deno
+  code --install-extension bourhaouta.tailwindshades
 
   p6_return_void
 }
