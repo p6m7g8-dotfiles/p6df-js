@@ -125,13 +125,13 @@ p6df::modules::js::langs::nodenv() {
   for ver_major in 22 24; do
     # nuke the old one
     local previous=$(p6df::modules::js::nodenv::latest::installed "$ver_major")
-    nodenv uninstall -f $previous
+    nodenv uninstall -f "$previous"
 
     # get the shiny one
     local latest=$(p6df::modules::js::nodenv::latest "$ver_major")
 
-    nodenv install -s $latest
-    nodenv global $latest
+    nodenv install -s "$latest"
+    nodenv global "$latest"
     nodenv rehash
 
     npm install -g npm
