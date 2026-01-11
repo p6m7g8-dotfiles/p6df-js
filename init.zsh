@@ -125,13 +125,13 @@ p6df::modules::js::langs::nodenv() {
   for ver_major in 22 24; do
     # nuke the old one
     local previous=$(p6df::modules::js::nodenv::latest::installed "$ver_major")
-    nodenv uninstall -f $previous
+    nodenv uninstall -f "$previous"
 
     # get the shiny one
     local latest=$(p6df::modules::js::nodenv::latest "$ver_major")
 
-    nodenv install -s $latest
-    nodenv global $latest
+    nodenv install -s "$latest"
+    nodenv global "$latest"
     nodenv rehash
 
     npm install -g npm
@@ -360,6 +360,26 @@ p6df::modules::js::pm::prompt::info() {
   fi
 
   p6_return_str "$str"
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::js::npm::token::gha()
+#
+#>
+######################################################################
+p6df::modules::js::npm::token::gha() {
+
+  npm token create \
+    --name gha \
+    --token-description "p6 github actions ci/cd" \
+    --bypass-2fa \
+    --expires 90 \
+    --packages-and-scopes-permission read-write \
+    --scopes @pgollucci
+
+  p6_return_void
 }
 
 ######################################################################

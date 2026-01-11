@@ -5,8 +5,6 @@
 ## Badges
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellowgreen.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Mergify](https://img.shields.io/endpoint.svg?url=https://gh.mergify.io/badges//p6df-js/&style=flat)](https://mergify.io)
-[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](<https://gitpod.io/#https://github.com//p6df-js>)
 
 ## Summary
 
@@ -26,6 +24,7 @@
 - lr IS lerna run --stream --scope $(node -p 'require(\'./package.json\').name\')
 - lt IS lr test
 - lw IS lr watch
+
 ### Functions
 
 ## p6df-js
@@ -48,6 +47,7 @@
 - p6df::modules::js::langs::nodenv()
 - p6df::modules::js::nodenv::latest(ver_major)
 - p6df::modules::js::nodenv::latest::installed(ver_major)
+- p6df::modules::js::npm::token::gha()
 - p6df::modules::js::vscodes()
 - p6df::modules::node::env::prompt::info()
 - str str = p6df::modules::js::pm::prompt::info()
