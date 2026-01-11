@@ -365,6 +365,26 @@ p6df::modules::js::pm::prompt::info() {
 ######################################################################
 #<
 #
+# Function: p6df::modules::js::npm::token::gha()
+#
+#>
+######################################################################
+p6df::modules::js::npm::token::gha() {
+
+  npm token create \
+    --name gha \
+    --token-description "p6 github actions ci/cd" \
+    --bypass-2fa \
+    --expires 90 \
+    --packages-and-scopes-permission read-write \
+    --scopes @pgollucci
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
 # Function: p6_js_npm_global_install(mod)
 #
 #  Args:
