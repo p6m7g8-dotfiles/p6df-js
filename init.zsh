@@ -8,7 +8,6 @@
 ######################################################################
 p6df::modules::js::deps() {
   ModuleDeps=(
-    p6m7g8-dotfiles/p6df-zsh
     ohmyzsh/ohmyzsh:plugins/npm
     ohmyzsh/ohmyzsh:plugins/yarn
     nodenv/nodenv
@@ -318,45 +317,97 @@ p6df::modules::js::completions::init() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::node::env::prompt::info()
+# Function: p6df::modules::js::prompt::env()
 #
-#  Environment:	 NODENV_ROOT
 #>
 ######################################################################
-p6df::modules::node::env::prompt::info() {
+p6df::modules::js::prompt::env() {
 
-  p6_echo "nodenv_root:\t  $NODENV_ROOT"
+#  local str="nodenv_root:\t  $NODENV_ROOT"
+  local str=""
+
+  p6_return "$str"
 }
 
 ######################################################################
 #<
 #
-# Function: str str = p6df::modules::js::pm::prompt::info()
+# Function: p6df::modules::js::prompt::lang()
+#
+#>
+######################################################################
+p6df::modules::js::prompt::lang() {
+
+  local ver
+
+  local ver_mgr
+  ver_mgr=$(nodenv version-name 2>/dev/null)
+  if p6_string_eq "$ver_mgr" "system"; then
+    local ver_sys="sys@"
+    local v
+    v=$(node -v 2>/dev/null | sed -e 's,v,,')
+    if p6_string_blank "$v"; then
+      ver_sys="sys:no"
+    fi
+    ver="$ver_sys"
+  else
+    ver="$ver_mgr"
+  fi
+
+  local str="node:$ver"
+
+  p6_return "$str"
+}
+
+######################################################################
+#<
+#
+# Function: str str = p6df::modules::js::prompt::mod()
 #
 #  Returns:
 #	str - str
 #
+#  Environment:	 NPM_USER P6_DFZ_PROFILE_NPM P6_NL
 #>
 ######################################################################
-p6df::modules::js::pm::prompt::info() {
+p6df::modules::js::prompt::mod() {
 
-  local str=""
+  local npm
+  if ! p6_string_blank "$P6_DFZ_PROFILE_NPM"; then
+    npm="npm:\t\t  $P6_DFZ_PROFILE_NPM:"
+    if ! p6_string_blank "$NPM_USER"; then
+      npm=$(p6_string_append "$npm" "$NPM_USER" " ")
+    fi
+  fi
 
+  local pm
   if p6_file_exists "package-lock.json"; then
-      str="${str}npm "
+      pm="${pm}npm "
   fi
   if p6_file_exists "yarn.lock"; then
-      str="${str}yarn "
+      pm="${pm}yarn "
   fi
   if p6_file_exists "pnpm-lock.yaml"; then
-      str="${str}pnpm "
+      pm="${pm}pnpm "
   fi
   if p6_file_exists "lerna.json"; then
-      str="${str}lerna "
+      pm="${pm}lerna "
   fi
 
-  if ! p6_string_blank "$str"; then
-    str="js::\t\t  pm:$str"
+  if ! p6_string_blank "$pm"; then
+    pm="js:\t\t  pm:$pm"
+  fi
+
+  local str
+  if ! p6_string_blank "$npm"; then
+    str="$npm"
+    if ! p6_string_blank "$pm"; then
+      str=$(p6_string_append "$str" "$pm" "$P6_NL")
+    fi
+  else
+    if ! p6_string_blank "$pm"; then
+      str="$pm"
+    fi
   fi
 
   p6_return_str "$str"

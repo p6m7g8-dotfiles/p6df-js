@@ -24,7 +24,6 @@
 - lr IS lerna run --stream --scope $(node -p 'require(\'./package.json\').name\')
 - lt IS lr test
 - lw IS lr watch
-
 ### Functions
 
 ## p6df-js
@@ -48,9 +47,10 @@
 - p6df::modules::js::nodenv::latest(ver_major)
 - p6df::modules::js::nodenv::latest::installed(ver_major)
 - p6df::modules::js::npm::token::gha()
+- p6df::modules::js::prompt::env()
+- p6df::modules::js::prompt::lang()
 - p6df::modules::js::vscodes()
-- p6df::modules::node::env::prompt::info()
-- str str = p6df::modules::js::pm::prompt::info()
+- str str = p6df::modules::js::prompt::mod()
 
 ## Hierarchy
 
