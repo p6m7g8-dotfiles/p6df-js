@@ -348,6 +348,8 @@ p6df::modules::js::prompt::lang() {
     v=$(node -v 2>/dev/null | sed -e 's,v,,')
     if p6_string_blank "$v"; then
       ver_sys="sys:no"
+    else
+      ver_sys="sys@$v"
     fi
     ver="$ver_sys"
   else
