@@ -48,9 +48,10 @@
 - p6df::modules::js::nodenv::latest(ver_major)
 - p6df::modules::js::nodenv::latest::installed(ver_major)
 - p6df::modules::js::npm::token::gha()
+- p6df::modules::js::prompt::env()
+- p6df::modules::js::prompt::lang()
 - p6df::modules::js::vscodes()
-- p6df::modules::node::env::prompt::info()
-- str str = p6df::modules::js::pm::prompt::info()
+- str str = p6df::modules::js::prompt::mod()
 
 ## Hierarchy
 
