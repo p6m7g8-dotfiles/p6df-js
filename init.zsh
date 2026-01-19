@@ -60,7 +60,6 @@ p6df::modules::js::home::symlink() {
 #
 # Function: p6df::modules::js::external::brews()
 #
-#  Environment:	 DENO_DIR
 #>
 ######################################################################
 p6df::modules::js::external::brews() {
@@ -91,7 +90,7 @@ p6df::modules::js::langs() {
 #
 # Function: p6df::modules::js::langs::bun()
 #
-#  Environment:	 BUN_INSTALL
+#  Environment:	 P6_DFZ_SRC_DIR
 #>
 ######################################################################
 p6df::modules::js::langs::bun() {
@@ -332,7 +331,10 @@ p6df::modules::js::prompt::env() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::js::prompt::lang()
+# Function: str str = p6df::modules::js::prompt::lang()
+#
+#  Returns:
+#	str - str
 #
 #>
 ######################################################################
