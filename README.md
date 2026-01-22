@@ -60,6 +60,8 @@ TODO: Add a short summary of this module.
 - `p6df::modules::js::nodenv::latest(ver_major)`
 - `p6df::modules::js::nodenv::latest::installed(ver_major)`
 - `p6df::modules::js::npm::token::gha()`
+- `p6df::modules::js::profile::off()`
+- `p6df::modules::js::profile::on(profile, user, token)`
 - `p6df::modules::js::prompt::env()`
 - `p6df::modules::js::vscodes()`
 - `str str = p6df::modules::js::prompt::lang()`

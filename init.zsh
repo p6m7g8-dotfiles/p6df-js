@@ -352,6 +352,48 @@ p6df::modules::js::prompt::lang() {
 ######################################################################
 #<
 #
+# Function: p6df::modules::js::profile::on(profile, user, token)
+#
+#  Args:
+#	profile -
+#	user -
+#	token -
+#
+#  Environment:	 NPM_TOKEN NPM_USER P6_DFZ_PROFILE_NPM
+#>
+######################################################################
+p6df::modules::js::profile::on() {
+  local profile="$1"
+  local user="$2"
+  local token="$3"
+
+  p6_env_export "P6_DFZ_PROFILE_NPM" "$profile"
+  p6_env_export NPM_TOKEN "$token"
+  p6_env_export NPM_USER "$user"
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::js::profile::off()
+#
+#  Environment:	 NPM_TOKEN NPM_USER P6_DFZ_PROFILE_NPM
+#>
+######################################################################
+p6df::modules::js::profile::off() {
+
+  p6_env_export_un "P6_DFZ_PROFILE_NPM"
+  p6_env_export_un NPM_TOKEN
+  p6_env_export_un NPM_USER
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
 # Function: str str = p6df::modules::js::prompt::mod()
 #
 #  Returns:
