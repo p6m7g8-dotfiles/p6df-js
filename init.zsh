@@ -344,7 +344,7 @@ p6df::modules::js::prompt::lang() {
   str=$(p6df::core::lang::prompt::lang \
     "node" \
     "nodenv version-name 2>/dev/null" \
-    "node -v 2>/dev/null | sed -e 's,v,,'")
+    "node -v 2>/dev/null | p6_filter_strip_leading_v")
 
   p6_return_str "$str"
 }
