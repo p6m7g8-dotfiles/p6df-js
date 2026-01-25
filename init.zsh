@@ -65,7 +65,7 @@ p6df::modules::js::home::symlink() {
 p6df::modules::js::external::brews() {
 
   # DENO_DIR defaults to $HOME/.cache/deno
-  p6df::modules::homebrew::cli::brew::install deno
+  p6df::core::homebrew::cli::brew::install deno
 
   p6_return_void
 }
