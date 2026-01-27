@@ -25,15 +25,57 @@ p6df::modules::js::deps() {
 ######################################################################
 p6df::modules::js::vscodes() {
 
-  code --install-extension gregorbiswanger.json2ts
-  code --install-extension orta.vscode-jest
-  code --install-extension wix.vscode-import-cost
-  code --install-extension bradgashler.htmltagwrap
-  code --install-extension formulahendry.auto-close-tag
-  code --install-extension formulahendry.auto-rename-tag
-  code --install-extension bradlc.vscode-tailwindcss
-  code --install-extension heybourn.headwind
-  code --install-extension bourhaouta.tailwindshades
+  p6df::modules::vscode::extension::install gregorbiswanger.json2ts
+  p6df::modules::vscode::extension::install orta.vscode-jest
+  p6df::modules::vscode::extension::install wix.vscode-import-cost
+  p6df::modules::vscode::extension::install bradgashler.htmltagwrap
+  p6df::modules::vscode::extension::install formulahendry.auto-close-tag
+  p6df::modules::vscode::extension::install formulahendry.auto-rename-tag
+  p6df::modules::vscode::extension::install bradlc.vscode-tailwindcss
+  p6df::modules::vscode::extension::install heybourn.headwind
+  p6df::modules::vscode::extension::install bourhaouta.tailwindshades
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: str json = p6df::modules::js::vscodes::config()
+#
+#  Returns:
+#	str - json
+#
+#>
+######################################################################
+p6df::modules::js::vscodes::config() {
+
+  cat <<'EOF'
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.format.enable": false,
+  "typescript.suggest.autoImports": true,
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.referencesCodeLens.enabled": false,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "jest.runMode": "on-demand",
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.lint.invalidConfigPath": "warning",
+  "tailwindCSS.lint.invalidTailwindDirective": "warning",
+  "tailwindCSS.lint.invalidVariant": "warning",
+  "sonarlint.rules": {
+    "typescript:S1848": { "level": "off" }
+  }
+EOF
 
   p6_return_void
 }
