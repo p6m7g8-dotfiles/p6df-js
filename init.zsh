@@ -447,9 +447,9 @@ p6df::modules::js::profile::off() {
 p6df::modules::js::prompt::mod() {
 
   local npm
-  if ! p6_string_blank "$P6_DFZ_PROFILE_NPM"; then
+  if p6_string_blank_NOT "$P6_DFZ_PROFILE_NPM"; then
     npm="npm:\t\t  $P6_DFZ_PROFILE_NPM:"
-    if ! p6_string_blank "$NPM_USER"; then
+    if p6_string_blank_NOT "$NPM_USER"; then
       npm=$(p6_string_append "$npm" "$NPM_USER" " ")
     fi
   fi
@@ -468,18 +468,18 @@ p6df::modules::js::prompt::mod() {
       pm="${pm}lerna "
   fi
 
-  if ! p6_string_blank "$pm"; then
+  if p6_string_blank_NOT "$pm"; then
     pm="js:\t\t  pm:$pm"
   fi
 
   local str
-  if ! p6_string_blank "$npm"; then
+  if p6_string_blank_NOT "$npm"; then
     str="$npm"
-    if ! p6_string_blank "$pm"; then
+    if p6_string_blank_NOT "$pm"; then
       str=$(p6_string_append "$str" "$pm" "$P6_NL")
     fi
   else
-    if ! p6_string_blank "$pm"; then
+    if p6_string_blank_NOT "$pm"; then
       str="$pm"
     fi
   fi
