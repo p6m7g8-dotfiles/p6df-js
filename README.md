@@ -44,26 +44,45 @@ TODO: Add a short summary of this module.
 ##### p6df-js/init.zsh
 
 - `p6_js_npm_global_install(mod)`
+  - Args:
+    - mod - 
 - `p6df::modules::js::aliases::deno()`
 - `p6df::modules::js::aliases::init()`
 - `p6df::modules::js::aliases::lerna()`
 - `p6df::modules::js::aliases::yarn()`
 - `p6df::modules::js::bun::init(dir)`
+  - Args:
+    - dir - 
 - `p6df::modules::js::completions::init(module, dir)`
+  - Args:
+    - module - 
+    - dir - 
 - `p6df::modules::js::deps()`
 - `p6df::modules::js::external::brews()`
 - `p6df::modules::js::home::symlink()`
 - `p6df::modules::js::init(_module, dir)`
+  - Args:
+    - _module - 
+    - dir - 
 - `p6df::modules::js::langs()`
 - `p6df::modules::js::langs::bun()`
 - `p6df::modules::js::langs::nodenv()`
 - `p6df::modules::js::nodenv::latest(ver_major)`
+  - Args:
+    - ver_major - 
 - `p6df::modules::js::nodenv::latest::installed(ver_major)`
+  - Args:
+    - ver_major - 
 - `p6df::modules::js::npm::token::gha()`
 - `p6df::modules::js::profile::off()`
 - `p6df::modules::js::profile::on(profile, user, token)`
+  - Args:
+    - profile - 
+    - user - 
+    - token - 
 - `p6df::modules::js::prompt::env()`
 - `p6df::modules::js::vscodes()`
+- `p6df::modules::js::vscodes::config()`
 - `str str = p6df::modules::js::prompt::lang()`
 - `str str = p6df::modules::js::prompt::mod()`
 
