@@ -58,20 +58,17 @@ p6df::modules::js::vscodes::config() {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "javascript.updateImportsOnFileMove.enabled": "always",
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.format.enable": false,
-  "typescript.suggest.autoImports": true,
-  "typescript.preferences.importModuleSpecifier": "relative",
-  "typescript.referencesCodeLens.enabled": false,
-  "typescript.updateImportsOnFileMove.enabled": "always",
   "jest.runMode": "on-demand",
   "tailwindCSS.emmetCompletions": true,
   "tailwindCSS.lint.invalidConfigPath": "warning",
   "tailwindCSS.lint.invalidTailwindDirective": "warning",
   "tailwindCSS.lint.invalidVariant": "warning",
-  "sonarlint.rules": {
-    "typescript:S1848": { "level": "off" }
-  }
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.format.enable": false,
+  "typescript.suggest.autoImports": true,
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.referencesCodeLens.enabled": false,
+  "typescript.updateImportsOnFileMove.enabled": "always"
 EOF
 
   p6_return_void
