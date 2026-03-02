@@ -489,9 +489,11 @@ p6df::modules::js::prompt::mod() {
 #>
 ######################################################################
 p6df::modules::js::npm::token::gha() {
+  local name
+  name="gha-$(date -u +%Y%m%d%H%M%S)"
 
   npm token create \
-    --name gha \
+    --name "$name" \
     --token-description "p6 github actions ci/cd" \
     --bypass-2fa \
     --expires 90 \
