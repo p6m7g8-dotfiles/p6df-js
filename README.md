@@ -18,7 +18,9 @@
 
 ## Summary
 
-TODO: Add a short summary of this module.
+p6df module for JavaScript/Node.js: nodenv version management, npm/yarn/lerna
+global installs, npm token management, and MCP server
+(`@arvoretech/npm-registry-mcp`) for AI-driven npm package discovery.
 
 ## Contributing
 
@@ -45,41 +47,42 @@ TODO: Add a short summary of this module.
 
 - `p6_js_npm_global_install(mod)`
   - Args:
-    - mod -
+    - mod
 - `p6df::modules::js::aliases::deno()`
 - `p6df::modules::js::aliases::init()`
 - `p6df::modules::js::aliases::lerna()`
 - `p6df::modules::js::aliases::yarn()`
 - `p6df::modules::js::bun::init(dir)`
   - Args:
-    - dir -
+    - dir
 - `p6df::modules::js::completions::init(module, dir)`
   - Args:
-    - module -
-    - dir -
+    - module
+    - dir
 - `p6df::modules::js::deps()`
 - `p6df::modules::js::external::brews()`
 - `p6df::modules::js::home::symlink()`
 - `p6df::modules::js::init(_module, dir)`
   - Args:
-    - _module -
-    - dir -
+    - _module
+    - dir
 - `p6df::modules::js::langs()`
 - `p6df::modules::js::langs::bun()`
 - `p6df::modules::js::langs::nodenv()`
+- `p6df::modules::js::mcp()`
 - `p6df::modules::js::nodenv::latest(ver_major)`
   - Args:
-    - ver_major -
+    - ver_major
 - `p6df::modules::js::nodenv::latest::installed(ver_major)`
   - Args:
-    - ver_major -
+    - ver_major
 - `p6df::modules::js::npm::token::gha()`
 - `p6df::modules::js::profile::off()`
 - `p6df::modules::js::profile::on(profile, user, token)`
   - Args:
-    - profile -
-    - user -
-    - token -
+    - profile
+    - user
+    - token
 - `p6df::modules::js::prompt::env()`
 - `p6df::modules::js::vscodes()`
 - `p6df::modules::js::vscodes::config()`

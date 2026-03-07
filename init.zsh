@@ -79,7 +79,7 @@ EOF
 #
 # Function: p6df::modules::js::home::symlink()
 #
-#  Environment:	 P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
+#  Environment:	 HOME P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
 p6df::modules::js::home::symlink() {
@@ -520,4 +520,18 @@ p6_js_npm_global_install() {
   npm install -g "$mod"
   npm list -g --depth 0
   nodenv rehash
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::js::mcp()
+#
+#>
+######################################################################
+p6df::modules::js::mcp() {
+
+  p6_js_npm_global_install "@arvoretech/npm-registry-mcp"
+
+  p6_return_void
 }
