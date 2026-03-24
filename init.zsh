@@ -241,8 +241,8 @@ p6df::modules::js::aliases::lerna() {
 ######################################################################
 p6df::modules::js::aliases::yarn() {
 
-  alias yd='yarn deploy'
-  alias yD='yarn destroy'
+  p6_alias "yd" "yarn deploy"
+  p6_alias "yD" "yarn destroy"
 
   p6_return_void
 }
@@ -256,16 +256,16 @@ p6df::modules::js::aliases::yarn() {
 ######################################################################
 p6df::modules::js::aliases::deno() {
 
-  alias db='deno bundle'
-  alias dc='deno compile'
-  alias dca='deno cache'
-  alias dfmt='deno fmt'
-  alias dh='deno help'
-  alias dli='deno lint'
-  alias drn='deno run'
-  alias drw='deno run --watch'
-  alias dts='deno test'
-  alias dup='deno upgrade'
+  p6_alias "db" "deno bundle"
+  p6_alias "dc" "deno compile"
+  p6_alias "dca" "deno cache"
+  p6_alias "dfmt" "deno fmt"
+  p6_alias "dh" "deno help"
+  p6_alias "dli" "deno lint"
+  p6_alias "drn" "deno run"
+  p6_alias "drw" "deno run --watch"
+  p6_alias "dts" "deno test"
+  p6_alias "dup" "deno upgrade"
 
   p6_return_void
 }
@@ -490,7 +490,7 @@ p6df::modules::js::prompt::mod() {
 ######################################################################
 p6df::modules::js::npm::token::gha() {
   local name
-  name="gha-$(date -u +%Y%m%d%H%M%S)"
+  name="gha-$(p6_date_fmt__cli -u +%Y%m%d%H%M%S)"
 
   npm token create \
     --name "$name" \
