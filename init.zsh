@@ -388,24 +388,22 @@ p6df::modules::js::prompt::lang() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::js::profile::on(profile, user, token)
+# Function: p6df::modules::js::profile::on(profile, code)
 #
 #  Args:
 #	profile -
-#	user -
-#	token -
+#	code - shell code block (export NPM_USER=... NPM_TOKEN=...)
 #
 #  Environment:	 NPM_TOKEN NPM_USER P6_DFZ_PROFILE_NPM
 #>
 ######################################################################
 p6df::modules::js::profile::on() {
   local profile="$1"
-  local user="$2"
-  local token="$3"
+  local code="$2"
+
+  p6_run_code "$code"
 
   p6_env_export "P6_DFZ_PROFILE_NPM" "$profile"
-  p6_env_export NPM_TOKEN "$token"
-  p6_env_export NPM_USER "$user"
 
   p6_return_void
 }
@@ -413,16 +411,19 @@ p6df::modules::js::profile::on() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::js::profile::off()
+# Function: p6df::modules::js::profile::off(code)
+#
+#  Args:
+#	code - shell code block previously passed to profile::on
 #
 #  Environment:	 NPM_TOKEN NPM_USER P6_DFZ_PROFILE_NPM
 #>
 ######################################################################
 p6df::modules::js::profile::off() {
+  local code="$1"
 
-  p6_env_export_un "P6_DFZ_PROFILE_NPM"
-  p6_env_export_un NPM_TOKEN
-  p6_env_export_un NPM_USER
+  p6_env_unset_from_code "$code"
+  p6_env_export_un P6_DFZ_PROFILE_NPM
 
   p6_return_void
 }
@@ -441,11 +442,8 @@ p6df::modules::js::profile::off() {
 p6df::modules::js::prompt::mod() {
 
   local npm
-  if p6_string_blank_NOT "$P6_DFZ_PROFILE_NPM"; then
-    npm="npm:\t\t  $P6_DFZ_PROFILE_NPM:"
-    if p6_string_blank_NOT "$NPM_USER"; then
-      npm=$(p6_string_append "$npm" "$NPM_USER" " ")
-    fi
+  if p6_string_blank_NOT "$NPM_TOKEN"; then
+    npm="npm:\t\t  $P6_DFZ_PROFILE_NPM: token"
   fi
 
   local pm
@@ -532,6 +530,9 @@ p6_js_npm_global_install() {
 p6df::modules::js::mcp() {
 
   p6_js_npm_global_install "@arvoretech/npm-registry-mcp"
+
+  p6df::modules::anthropic::mcp::server::add "npm-registry" "npx" "-y" "@arvoretech/npm-registry-mcp"
+  p6df::modules::openai::mcp::server::add "npm-registry" "npx" "-y" "@arvoretech/npm-registry-mcp"
 
   p6_return_void
 }
