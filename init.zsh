@@ -77,16 +77,18 @@ EOF
 ######################################################################
 #<
 #
-# Function: p6df::modules::js::home::symlink()
+# Function: p6df::modules::js::home::symlinks()
 #
 #  Environment:	 HOME P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
-p6df::modules::js::home::symlink() {
+p6df::modules::js::home::symlinks() {
 
   p6_dir_mk "$P6_DFZ_SRC_DIR/nodenv/nodenv/plugins"
   p6_file_symlink "$P6_DFZ_SRC_DIR/nodenv/node-build" "$P6_DFZ_SRC_DIR/nodenv/nodenv/plugins/node-build"
   p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-js/share/.npm" "$HOME/.npm"
+  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-js/share/.npmrc" "$HOME/.npmrc"
+  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-js/share/.yarnrc" "$HOME/.yarnrc"
 
   p6_return_void
 }
