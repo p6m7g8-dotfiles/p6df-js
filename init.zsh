@@ -275,22 +275,33 @@ p6df::modules::js::aliases::deno() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::js::init(_module, dir)
-#
-#  Args:
-#	_module -
-#	dir -
+# Function: p6df::modules::js::langmgr::init()
 #
 #  Environment:	 P6_DFZ_SRC_DIR
 #>
 ######################################################################
-p6df::modules::js::init() {
-  local _module="$1"
-  local dir="$2"
+p6df::modules::js::langmgr::init() {
 
   p6df::core::lang::mgr::init "$P6_DFZ_SRC_DIR/nodenv/nodenv" "nod"
 
-  p6df::modules::js::bun::init "$P6_DFZ_SRC_DIR"
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::js::env::init()
+#
+#  Environment:	 BUN_INSTALL P6_DFZ_SRC_DIR
+#>
+######################################################################
+p6df::modules::js::env::init() {
+  local _module="$1"
+  local _dir="$2"
+
+  # Bun
+  p6_env_export BUN_INSTALL "$P6_DFZ_SRC_DIR/bun"
+  p6_path_if "$BUN_INSTALL/bin"
 
   p6_return_void
 }
@@ -303,31 +314,12 @@ p6df::modules::js::init() {
 #>
 ######################################################################
 p6df::modules::js::aliases::init() {
+  local _module="$1"
+  local _dir="$2"
 
   p6df::modules::js::aliases::lerna
   p6df::modules::js::aliases::yarn
   p6df::modules::js::aliases::deno
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::js::bun::init(dir)
-#
-#  Args:
-#	dir -
-#
-#  Environment:	 BUN_INSTALL
-#>
-######################################################################
-p6df::modules::js::bun::init() {
-  local dir="$1"
-
-  # Bun
-  p6_env_export BUN_INSTALL "$dir/bun"
-  p6_path_if "$BUN_INSTALL/bin"
 
   p6_return_void
 }
@@ -344,27 +336,13 @@ p6df::modules::js::bun::init() {
 #>
 ######################################################################
 p6df::modules::js::completions::init() {
-  local module="$1"
+  local _module="$1"
   local dir="$2"
 
   # bun completions
   p6_file_load "$dir/bun/_bun"
 }
 
-######################################################################
-#<
-#
-# Function: p6df::modules::js::prompt::env()
-#
-#>
-######################################################################
-p6df::modules::js::prompt::env() {
-
-#  local str="nodenv_root:\t  $NODENV_ROOT"
-  local str=""
-
-  p6_return "$str"
-}
 
 ######################################################################
 #<
@@ -390,95 +368,17 @@ p6df::modules::js::prompt::lang() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::js::profile::on(profile, code)
-#
-#  Args:
-#	profile -
-#	code - shell code block (export NPM_USER=... NPM_TOKEN=...)
-#
-#  Environment:	 NPM_TOKEN NPM_USER P6_DFZ_PROFILE_NPM
-#>
-######################################################################
-p6df::modules::js::profile::on() {
-  local profile="$1"
-  local code="$2"
-
-  p6_run_code "$code"
-
-  p6_env_export "P6_DFZ_PROFILE_NPM" "$profile"
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::js::profile::off(code)
-#
-#  Args:
-#	code - shell code block previously passed to profile::on
-#
-#  Environment:	 NPM_TOKEN NPM_USER P6_DFZ_PROFILE_NPM
-#>
-######################################################################
-p6df::modules::js::profile::off() {
-  local code="$1"
-
-  p6_env_unset_from_code "$code"
-  p6_env_export_un P6_DFZ_PROFILE_NPM
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: str str = p6df::modules::js::prompt::mod()
+# Function: words npm $NPM_USER = p6df::modules::js::profile::mod()
 #
 #  Returns:
-#	str - str
+#	words - npm $NPM_USER
 #
-#  Environment:	 NPM_USER P6_DFZ_PROFILE_NPM P6_NL
+#  Environment:	 NPM_USER
 #>
 ######################################################################
-p6df::modules::js::prompt::mod() {
+p6df::modules::js::profile::mod() {
 
-  local npm
-  if p6_string_blank_NOT "$NPM_TOKEN"; then
-    npm="npm:\t\t  $P6_DFZ_PROFILE_NPM: token"
-  fi
-
-  local pm
-  if p6_file_exists "package-lock.json"; then
-      pm="${pm}npm "
-  fi
-  if p6_file_exists "yarn.lock"; then
-      pm="${pm}yarn "
-  fi
-  if p6_file_exists "pnpm-lock.yaml"; then
-      pm="${pm}pnpm "
-  fi
-  if p6_file_exists "lerna.json"; then
-      pm="${pm}lerna "
-  fi
-
-  if p6_string_blank_NOT "$pm"; then
-    pm="js:\t\t  pm:$pm"
-  fi
-
-  local str
-  if p6_string_blank_NOT "$npm"; then
-    str="$npm"
-    if p6_string_blank_NOT "$pm"; then
-      str=$(p6_string_append "$str" "$pm" "$P6_NL")
-    fi
-  else
-    if p6_string_blank_NOT "$pm"; then
-      str="$pm"
-    fi
-  fi
-
-  p6_return_str "$str"
+  p6_return_words 'npm' "$NPM_USER"
 }
 
 ######################################################################
