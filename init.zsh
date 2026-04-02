@@ -136,10 +136,10 @@ p6df::modules::js::langs::bun() {
   local file=$(p6_transient_create_file "bun.sh")
 
   p6_network_file_download "https://bun.sh/install" "$file"
-  p6_file_lines_remove "162" "232" "$file"
-  p6_file_perms_set "a+rx" "$file"
+  p6_file_lines_remove '^case' '^esac' 'bun was installed successfully to' "$file"
+  p6_file_chmod "a+rx" "$file"
   p6_run_code "BUN_INSTALL=$P6_DFZ_SRC_DIR/bun"6 "$file"
-  p6_file_remove "$file"
+  p6_file_rmf "$file"
 
   p6_return_void
 }
@@ -340,7 +340,7 @@ p6df::modules::js::completions::init() {
   local dir="$2"
 
   # bun completions
-  p6_file_load "$dir/bun/_bun"
+  p6_file_load "$HOME/.bun/_bun"
 }
 
 
