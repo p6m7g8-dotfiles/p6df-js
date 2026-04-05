@@ -1,5 +1,11 @@
 # shellcheck shell=bash
 ######################################################################
+#<
+#
+# Function: p6df::modules::js::deps()
+#
+#>
+######################################################################
 p6df::modules::js::deps() {
   ModuleDeps=(
     ohmyzsh/ohmyzsh:plugins/npm
@@ -10,6 +16,13 @@ p6df::modules::js::deps() {
   )
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::js::env::init()
+#
+#  Environment:	 BUN_INSTALL P6_DFZ_SRC_DIR
+#>
 ######################################################################
 p6df::modules::js::env::init() {
   local _module="$1"
@@ -23,18 +36,31 @@ p6df::modules::js::env::init() {
 }
 
 ######################################################################
+#<
+#
+# Function: p6df::modules::js::completions::init(module, dir)
+#
+#  Args:
+#	module -
+#	dir -
+#
+#>
+######################################################################
 p6df::modules::js::completions::init() {
   local _module="$1"
   local dir="$2"
 
   # bun completions
-  if p6_file_exists "$HOME/.bun/_bun"; then
-    p6_file_load "$HOME/.bun/_bun"
-  fi
-
-  p6_return_void
+  p6_file_load "$HOME/.bun/_bun"
 }
 
+
+######################################################################
+#<
+#
+# Function: p6df::modules::js::aliases::init()
+#
+#>
 ######################################################################
 p6df::modules::js::aliases::init() {
   local _module="$1"
@@ -48,6 +74,13 @@ p6df::modules::js::aliases::init() {
 }
 
 ######################################################################
+#<
+#
+# Function: p6df::modules::js::langmgr::init()
+#
+#  Environment:	 P6_DFZ_SRC_DIR
+#>
+######################################################################
 p6df::modules::js::langmgr::init() {
 
   p6df::core::lang::mgr::init "$P6_DFZ_SRC_DIR/nodenv/nodenv" "nod"
@@ -55,6 +88,13 @@ p6df::modules::js::langmgr::init() {
   p6_return_void
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::js::home::symlinks()
+#
+#  Environment:	 HOME P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
+#>
 ######################################################################
 p6df::modules::js::home::symlinks() {
 
@@ -68,6 +108,12 @@ p6df::modules::js::home::symlinks() {
 }
 
 ######################################################################
+#<
+#
+# Function: p6df::modules::js::external::brews()
+#
+#>
+######################################################################
 p6df::modules::js::external::brews() {
 
   # DENO_DIR defaults to $HOME/.cache/deno
@@ -76,6 +122,12 @@ p6df::modules::js::external::brews() {
   p6_return_void
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::js::langs()
+#
+#>
 ######################################################################
 p6df::modules::js::langs() {
 
@@ -86,6 +138,12 @@ p6df::modules::js::langs() {
 }
 
 ######################################################################
+#<
+#
+# Function: p6df::modules::js::mcp()
+#
+#>
+######################################################################
 p6df::modules::js::mcp() {
 
   p6_js_npm_global_install "@arvoretech/npm-registry-mcp"
@@ -95,6 +153,12 @@ p6df::modules::js::mcp() {
 
   p6_return_void
 }
+######################################################################
+#<
+#
+# Function: p6df::modules::js::vscodes()
+#
+#>
 ######################################################################
 p6df::modules::js::vscodes() {
 
@@ -111,6 +175,12 @@ p6df::modules::js::vscodes() {
   p6_return_void
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::js::vscodes::config()
+#
+#>
 ######################################################################
 p6df::modules::js::vscodes::config() {
 
@@ -142,48 +212,21 @@ EOF
 }
 
 ######################################################################
+#<
+#
+# Function: words npm $NPM_USER = p6df::modules::js::profile::mod()
+#
+#  Returns:
+#	words - npm $NPM_USER
+#
+#  Environment:	 NPM_USER
+#>
+######################################################################
 p6df::modules::js::profile::mod() {
 
   p6_return_words 'npm' '$NPM_USER'
 }
 
-######################################################################
-#<
-#
-# Function: p6df::modules::js::deps()
-#
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::js::vscodes()
-#
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::js::vscodes::config()
-#
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::js::home::symlinks()
-#
-#  Environment:	 HOME P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::js::external::brews()
-#
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::js::langs()
-#
-#>
 ######################################################################
 #<
 #
@@ -336,36 +379,6 @@ p6df::modules::js::aliases::deno() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::js::langmgr::init()
-#
-#  Environment:	 P6_DFZ_SRC_DIR
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::js::env::init()
-#
-#  Environment:	 BUN_INSTALL P6_DFZ_SRC_DIR
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::js::aliases::init()
-#
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::js::completions::init(module, dir)
-#
-#  Args:
-#	module -
-#	dir -
-#
-#>
-######################################################################
-#<
-#
 # Function: str str = p6df::modules::js::prompt::lang()
 #
 #  Returns:
@@ -384,16 +397,6 @@ p6df::modules::js::prompt::lang() {
   p6_return_str "$str"
 }
 
-######################################################################
-#<
-#
-# Function: words npm $NPM_USER = p6df::modules::js::profile::mod()
-#
-#  Returns:
-#	words - npm $NPM_USER
-#
-#  Environment:	 NPM_USER
-#>
 ######################################################################
 #<
 #
@@ -435,9 +438,3 @@ p6_js_npm_global_install() {
   nodenv rehash
 }
 
-######################################################################
-#<
-#
-# Function: p6df::modules::js::mcp()
-#
-#>
