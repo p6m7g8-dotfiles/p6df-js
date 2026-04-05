@@ -19,6 +19,143 @@ p6df::modules::js::deps() {
 ######################################################################
 #<
 #
+# Function: p6df::modules::js::env::init()
+#
+#  Environment:	 BUN_INSTALL P6_DFZ_SRC_DIR
+#>
+######################################################################
+p6df::modules::js::env::init() {
+  local _module="$1"
+  local _dir="$2"
+
+  # Bun
+  p6_env_export BUN_INSTALL "$P6_DFZ_SRC_DIR/bun"
+  p6_path_if "$BUN_INSTALL/bin"
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::js::completions::init(module, dir)
+#
+#  Args:
+#	module -
+#	dir -
+#
+#>
+######################################################################
+p6df::modules::js::completions::init() {
+  local _module="$1"
+  local dir="$2"
+
+  # bun completions
+  p6_file_load "$HOME/.bun/_bun"
+}
+
+
+######################################################################
+#<
+#
+# Function: p6df::modules::js::aliases::init()
+#
+#>
+######################################################################
+p6df::modules::js::aliases::init() {
+  local _module="$1"
+  local _dir="$2"
+
+  p6df::modules::js::aliases::lerna
+  p6df::modules::js::aliases::yarn
+  p6df::modules::js::aliases::deno
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::js::langmgr::init()
+#
+#  Environment:	 P6_DFZ_SRC_DIR
+#>
+######################################################################
+p6df::modules::js::langmgr::init() {
+
+  p6df::core::lang::mgr::init "$P6_DFZ_SRC_DIR/nodenv/nodenv" "nod"
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::js::home::symlinks()
+#
+#  Environment:	 HOME P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
+#>
+######################################################################
+p6df::modules::js::home::symlinks() {
+
+  p6_dir_mk "$P6_DFZ_SRC_DIR/nodenv/nodenv/plugins"
+  p6_file_symlink "$P6_DFZ_SRC_DIR/nodenv/node-build" "$P6_DFZ_SRC_DIR/nodenv/nodenv/plugins/node-build"
+  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-js/share/.npm" "$HOME/.npm"
+  [ -f "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-js/share/.npmrc" ] && p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-js/share/.npmrc" "$HOME/.npmrc"
+  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-js/share/.yarnrc" "$HOME/.yarnrc"
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::js::external::brews()
+#
+#>
+######################################################################
+p6df::modules::js::external::brews() {
+
+  # DENO_DIR defaults to $HOME/.cache/deno
+  p6df::core::homebrew::cli::brew::install deno
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::js::langs()
+#
+#>
+######################################################################
+p6df::modules::js::langs() {
+
+  p6df::modules::js::langs::nodenv
+#  p6df::modules::js::langs::bun
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::js::mcp()
+#
+#>
+######################################################################
+p6df::modules::js::mcp() {
+
+  p6_js_npm_global_install "@arvoretech/npm-registry-mcp"
+
+  p6df::modules::anthropic::mcp::server::add "npm-registry" "npx" "-y" "@arvoretech/npm-registry-mcp"
+  p6df::modules::openai::mcp::server::add "npm-registry" "npx" "-y" "@arvoretech/npm-registry-mcp"
+
+  p6_return_void
+}
+######################################################################
+#<
+#
 # Function: p6df::modules::js::vscodes()
 #
 #>
@@ -77,50 +214,17 @@ EOF
 ######################################################################
 #<
 #
-# Function: p6df::modules::js::home::symlinks()
+# Function: words npm $NPM_USER = p6df::modules::js::profile::mod()
 #
-#  Environment:	 HOME P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
+#  Returns:
+#	words - npm $NPM_USER
+#
+#  Environment:	 NPM_USER
 #>
 ######################################################################
-p6df::modules::js::home::symlinks() {
+p6df::modules::js::profile::mod() {
 
-  p6_dir_mk "$P6_DFZ_SRC_DIR/nodenv/nodenv/plugins"
-  p6_file_symlink "$P6_DFZ_SRC_DIR/nodenv/node-build" "$P6_DFZ_SRC_DIR/nodenv/nodenv/plugins/node-build"
-  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-js/share/.npm" "$HOME/.npm"
-  [ -f "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-js/share/.npmrc" ] && p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-js/share/.npmrc" "$HOME/.npmrc"
-  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-js/share/.yarnrc" "$HOME/.yarnrc"
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::js::external::brews()
-#
-#>
-######################################################################
-p6df::modules::js::external::brews() {
-
-  # DENO_DIR defaults to $HOME/.cache/deno
-  p6df::core::homebrew::cli::brew::install deno
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::js::langs()
-#
-#>
-######################################################################
-p6df::modules::js::langs() {
-
-  p6df::modules::js::langs::nodenv
-#  p6df::modules::js::langs::bun
-
-  p6_return_void
+  p6_return_words 'npm' '$NPM_USER'
 }
 
 ######################################################################
@@ -275,78 +379,6 @@ p6df::modules::js::aliases::deno() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::js::langmgr::init()
-#
-#  Environment:	 P6_DFZ_SRC_DIR
-#>
-######################################################################
-p6df::modules::js::langmgr::init() {
-
-  p6df::core::lang::mgr::init "$P6_DFZ_SRC_DIR/nodenv/nodenv" "nod"
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::js::env::init()
-#
-#  Environment:	 BUN_INSTALL P6_DFZ_SRC_DIR
-#>
-######################################################################
-p6df::modules::js::env::init() {
-  local _module="$1"
-  local _dir="$2"
-
-  # Bun
-  p6_env_export BUN_INSTALL "$P6_DFZ_SRC_DIR/bun"
-  p6_path_if "$BUN_INSTALL/bin"
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::js::aliases::init()
-#
-#>
-######################################################################
-p6df::modules::js::aliases::init() {
-  local _module="$1"
-  local _dir="$2"
-
-  p6df::modules::js::aliases::lerna
-  p6df::modules::js::aliases::yarn
-  p6df::modules::js::aliases::deno
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::js::completions::init(module, dir)
-#
-#  Args:
-#	module -
-#	dir -
-#
-#>
-######################################################################
-p6df::modules::js::completions::init() {
-  local _module="$1"
-  local dir="$2"
-
-  # bun completions
-  p6_file_load "$HOME/.bun/_bun"
-}
-
-
-######################################################################
-#<
-#
 # Function: str str = p6df::modules::js::prompt::lang()
 #
 #  Returns:
@@ -363,22 +395,6 @@ p6df::modules::js::prompt::lang() {
     "node -v 2>/dev/null | p6_filter_strip_leading_v")
 
   p6_return_str "$str"
-}
-
-######################################################################
-#<
-#
-# Function: words npm $NPM_USER = p6df::modules::js::profile::mod()
-#
-#  Returns:
-#	words - npm $NPM_USER
-#
-#  Environment:	 NPM_USER
-#>
-######################################################################
-p6df::modules::js::profile::mod() {
-
-  p6_return_words 'npm' '$NPM_USER'
 }
 
 ######################################################################
@@ -422,19 +438,3 @@ p6_js_npm_global_install() {
   nodenv rehash
 }
 
-######################################################################
-#<
-#
-# Function: p6df::modules::js::mcp()
-#
-#>
-######################################################################
-p6df::modules::js::mcp() {
-
-  p6_js_npm_global_install "@arvoretech/npm-registry-mcp"
-
-  p6df::modules::anthropic::mcp::server::add "npm-registry" "npx" "-y" "@arvoretech/npm-registry-mcp"
-  p6df::modules::openai::mcp::server::add "npm-registry" "npx" "-y" "@arvoretech/npm-registry-mcp"
-
-  p6_return_void
-}
