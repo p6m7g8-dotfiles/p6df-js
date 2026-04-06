@@ -19,7 +19,11 @@ p6df::modules::js::deps() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::js::env::init()
+# Function: p6df::modules::js::env::init(_module, _dir)
+#
+#  Args:
+#	_module -
+#	_dir -
 #
 #  Environment:	 BUN_INSTALL P6_DFZ_SRC_DIR
 #>
@@ -38,12 +42,13 @@ p6df::modules::js::env::init() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::js::completions::init(module, dir)
+# Function: p6df::modules::js::completions::init(_module, dir)
 #
 #  Args:
-#	module -
+#	_module -
 #	dir -
 #
+#  Environment:	 HOME
 #>
 ######################################################################
 p6df::modules::js::completions::init() {
@@ -58,7 +63,11 @@ p6df::modules::js::completions::init() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::js::aliases::init()
+# Function: p6df::modules::js::aliases::init(_module, _dir)
+#
+#  Args:
+#	_module -
+#	_dir -
 #
 #>
 ######################################################################
@@ -214,10 +223,10 @@ EOF
 ######################################################################
 #<
 #
-# Function: words npm $NPM_USER = p6df::modules::js::profile::mod()
+# Function: words npm = p6df::modules::js::profile::mod()
 #
 #  Returns:
-#	words - npm $NPM_USER
+#	words - npm
 #
 #  Environment:	 NPM_USER
 #>
@@ -282,38 +291,6 @@ p6df::modules::js::langs::nodenv() {
   done
 
   p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::js::nodenv::latest(ver_major)
-#
-#  Args:
-#	ver_major -
-#
-#>
-######################################################################
-p6df::modules::js::nodenv::latest() {
-  local ver_major="$1"
-
-  nodenv install -l | p6_filter_row_select "^$ver_major" | p6_filter_row_last "1"
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::js::nodenv::latest::installed(ver_major)
-#
-#  Args:
-#	ver_major -
-#
-#>
-######################################################################
-p6df::modules::js::nodenv::latest::installed() {
-  local ver_major="$1"
-
-  nodenv install -l | p6_filter_row_select "^$ver_major" | p6_filter_row_from_end "2"
 }
 
 ######################################################################
@@ -419,22 +396,4 @@ p6df::modules::js::npm::token::gha() {
   p6_return_void
 }
 
-######################################################################
-#<
-#
-# Function: p6_js_npm_global_install(mod)
-#
-#  Args:
-#	mod -
-#
-#>
-######################################################################
-p6_js_npm_global_install() {
-  local mod="$1"
-
-  npm uninstall -g "$mod"
-  npm install -g "$mod"
-  npm list -g --depth 0
-  nodenv rehash
-}
 
